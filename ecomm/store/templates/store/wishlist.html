@@ -1,0 +1,31 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        {% for item in wishListItems %}
+        <div class="col-lg-4 product-margin">
+            <img class="thumbnail" src="{{item.product.imageURL}}">
+            <div class="box-element product">
+                <h6><strong>{{item.product.name}}</strong></h6>
+		        <hr>
+                <button  data-product="{{item.product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart update-wishlist">Add to Cart</button>
+                <button  data-product="{{item.product.id}}" data-action="remove" class="btn btn-outline-secondary add-btn update-wishlist">Remove</button>
+                <h4 style="display: inline-block; float: right">${{item.product.price|floatformat:2}}</h4>
+            </div>
+        </div>
+
+        {% endfor %} 
+    </div>
+    <script type = "text/javascript">
+        //var wishlistitems = '{{wishListItems}}'
+        console.log('{{wishListCount}}')
+        if('{{wishListCount}}'<=0){
+                window.addEventListener('load', function(e) {
+                e.preventDefault()
+                alert('Oops! Your wishlist is empty.')
+                document.location.href = "{% url 'store' %}"
+            })
+            
+        }
+    </script>
+{% endblock content %}
